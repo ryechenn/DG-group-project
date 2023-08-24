@@ -1,0 +1,64 @@
+---
+title: "Linear Regression"
+author: "Yuhong"
+date: "2023-08-22"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+```{r}
+library(readr)
+train<-read_csv('/Users/yuhongchen/Desktop/work/summer intern/Group/Cross Selling/Train.csv')
+```
+```{r}
+head(train)
+```
+
+#Null model
+```{r}
+n0 <- lm(formula = ind_cco_fin_ult1 ~1, data=train)
+summary(n0)
+```
+
+#One explanatory variable
+```{r}
+m1<-lm(formula=ind_cco_fin_ult1 ~ sexo,data=train)
+summary(m1)
+```
+
+
+#Multiple regression
+```{r}
+m2<-lm(formula=ind_cco_fin_ult1 ~ sexo+age+antiguedad,data=train)
+summary(m2)
+```
+
+#With other terms
+```{r}
+m3<-lm(formula=ind_cco_fin_ult1 ~ age+antiguedad,data=train)
+summary(m3)
+```
+#With other terms
+```{r}
+m4<-lm(formula=ind_cco_fin_ult1 ~ sexo+antiguedad,data=train)
+summary(m4)
+```
+#Test the AIC
+```{r}
+AIC(n0,m1,m2,m3,m4)
+```
+
+So we can see that m2<-lm(formula=ind_cco_fin_ult1 ~ sexo+age+antiguedad,data=train) is the final model.
+On whether the terms influence the selling of current account. 
+On the model the terms of m2 model has viewed the AIC and the terms are the relatively independent terms that 
+influence selling of current accoung significantly.
+So under these, company could use the terms of customers to improve the cross selling upon this one account.
+And also find the same significant terms between different accounts or products, which could realize the corss selling improvement. One product, Two product, or even 3 or 4, they have the same terms in models influencing significantly of the selling of them, then the business advisors could take more attention on these terms, like age, province or else.
+
+
+
+
